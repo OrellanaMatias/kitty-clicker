@@ -1,0 +1,66 @@
+html, body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#flex-box {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 90vh;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #10182b; 
+}
+
+
+#catImg {
+    width: 50%;
+    height: auto;
+}
+
+#gameTitle {
+    font-size: 20vw;
+    font-family: sans-serif;
+    color: #fafafa;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+#score {
+    font-size: 15vw;
+    font-family: sans-serif;
+    color: #fafafa;
+    margin: 5vw;
+}
+
+#navBar {
+    background-color: #030508;
+    width: 100vw;
+    height: 10vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#store {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #fc9700;
+}
+
+#storeImg {
+    width: auto;
+    height: 80%;
+}
