@@ -5,7 +5,7 @@ html, body {
     box-sizing: border-box;
 }
 
-#flex-box {
+#flexBox {
     margin: 0;
     padding: 0;
     width: 100vw;
@@ -54,13 +54,48 @@ html, body {
 #store {
     display: none;
     width: 100vw;
-    height: 100vh;
+    height: 90vh;
     margin: 0;
     padding: 0;
-    background-color: #fc9700;
+    box-sizing: border-box;
+    background-color: #d35400;
+}
+
+#store h2:first-child{
+    font-family: sans-serif;
+    font-size: 20vw;
+    color: #f4f4f4;
+    text-align: center;
+    margin: 0;
 }
 
 #storeImg {
     width: auto;
     height: 80%;
 }
+
+.storeFlex {
+    display: flex;
+    flex-flow: row;  
+    justify-content: center;
+    align-items: center;
+}
+
+.storeFlex h2 {
+    font-family: sans-serif;
+    font-size: 5vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+.storeFlex span {
+    font-family: sans-serif;
+    font-size: 5vw;
+    color: aqua;
+}
+
+#multiplierImg {
+    width: 15%;
+    height: auto;
+}
+
