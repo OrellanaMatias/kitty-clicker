@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flappy Game</title>
+    <title>Flappy Cat</title>
     <style>
         body, html {
             margin: 0;
@@ -24,7 +24,7 @@
             border: 1px solid #000;
         }
 
-        #startBtn, #retryBtn {
+        #startBtn {
             display: none;
             padding: 10px 20px;
             font-size: 16px;
@@ -37,7 +37,7 @@
             z-index: 10;
         }
 
-        #startBtn.show, #retryBtn.show {
+        #startBtn.show {
             display: block;
         }
     </style>
@@ -45,12 +45,10 @@
 <body>
     <canvas id="gameCanvas"></canvas>
     <button id="startBtn">Iniciar</button>
-    <button id="retryBtn">Reintentar</button>
     <script>
         const canvas = document.getElementById('gameCanvas');
         const context = canvas.getContext('2d');
         const startBtn = document.getElementById('startBtn');
-        const retryBtn = document.getElementById('retryBtn');
 
         let playerY, playerX, gravity, lift, velocity, isGameOver, score, pipes;
         const playerImg = new Image();
@@ -63,18 +61,18 @@
         }
 
         function resetGame() {
-            playerY = canvas.height / 2;
-            playerX = 50;
-            gravity = 0.6;
-            lift = -10;
-            velocity = 0;
-            isGameOver = false;
-            score = 0;
-            pipes = [];
-            retryBtn.classList.remove('show');
-            startBtn.classList.remove('show');
-            update();
-        }
+    playerY = canvas.height / 2;
+    playerX = 50;
+    gravity = 0.6;
+    lift = -9;  // Reducir el valor de lift para saltar menos
+    velocity = 0;
+    isGameOver = false;
+    score = 0;
+    pipes = [];
+    startBtn.classList.remove('show');
+    update();
+}
+
 
         function draw() {
             context.clearRect(0, 0, canvas.width, canvas.height);
@@ -91,52 +89,57 @@
         }
 
         function update() {
-            if (!isGameOver) {
-                velocity += gravity;
-                playerY += velocity;
-                draw();
-                if (playerY + 30 >= canvas.height) {
-                    isGameOver = true;
-                }
+    if (!isGameOver) {
+        velocity += gravity;
+        playerY += velocity;
+        draw();
 
-                pipes.forEach((pipe, index) => {
-                    pipe.x -= 2;
-                    if (
-                        (playerX + 30 > pipe.x && playerX < pipe.x + pipe.width) &&
-                        (playerY < pipe.top || playerY + 30 > canvas.height - pipe.bottom)
-                    ) {
-                        isGameOver = true;
-                    }
-
-                    if (pipe.x + pipe.width < 0) {
-                        pipes.splice(index, 1);
-                        score++;
-                    }
-                });
-
-                if (pipes.length === 0 || pipes[pipes.length - 1].x < canvas.width - 200) {
-                    let pipeGap = 150;
-                    let pipeTop = Math.random() * (canvas.height - pipeGap - 20) + 10;
-                    let pipeBottom = canvas.height - pipeGap - pipeTop;
-                    pipes.push({
-                        x: canvas.width,
-                        width: 40,
-                        top: pipeTop,
-                        bottom: pipeBottom
-                    });
-                }
-
-                requestAnimationFrame(update);
-            } else {
-                context.fillStyle = 'red';
-                context.font = '30px Arial';
-                context.fillText('A casa', canvas.width / 2 - 70, canvas.height / 3);
-                retryBtn.classList.add('show');
-            }
+        if (playerY + 30 >= canvas.height) {
+            isGameOver = true;
         }
 
+        pipes.forEach((pipe, index) => {
+            pipe.x -= 2;
+            if (
+                (playerX + 30 > pipe.x && playerX < pipe.x + pipe.width) &&
+                (playerY < pipe.top || playerY + 30 > canvas.height - pipe.bottom)
+            ) {
+                isGameOver = true;
+            }
+
+            if (pipe.x + pipe.width < 0) {
+                pipes.splice(index, 1);
+                score++;
+            }
+        });
+
+        // Incrementar la distancia entre los obstáculos
+        if (pipes.length === 0 || pipes[pipes.length - 1].x < canvas.width - 300) { 
+            let pipeGap = 200;  // Tamaño separacion superior y inferior
+            let pipeTop = Math.random() * (canvas.height - pipeGap - 20) + 10;
+            let pipeBottom = canvas.height - pipeGap - pipeTop;
+            pipes.push({
+                x: canvas.width,
+                width: 40,
+                top: pipeTop,
+                bottom: pipeBottom
+            });
+        }
+
+        requestAnimationFrame(update);
+    } else {
+        context.fillStyle = 'red';
+        context.font = '30px Arial';
+        context.fillText('A casa', canvas.width / 2 - 70, canvas.height / 3);
+    }
+}
+
         function handleJump() {
-            velocity = lift;
+            if (isGameOver) {
+                resetGame();  // Reinicia el juego si está terminado y se hace clic
+            } else {
+                velocity = lift;
+            }
         }
 
         document.addEventListener('keydown', (e) => {
@@ -150,11 +153,12 @@
             handleJump();
         });
 
-        startBtn.addEventListener('click', () => {
-            resetGame();
+        // Aquí añadimos el evento para saltar con clic en PC y reiniciar si es game over
+        document.addEventListener('click', (e) => {
+            handleJump();
         });
 
-        retryBtn.addEventListener('click', () => {
+        startBtn.addEventListener('click', () => {
             resetGame();
         });
 
@@ -164,10 +168,6 @@
         startBtn.style.top = '50%';
         startBtn.style.left = '50%';
         startBtn.style.transform = 'translate(-50%, -50%)';
-
-        retryBtn.style.top = '50%';
-        retryBtn.style.left = '50%';
-        retryBtn.style.transform = 'translate(-50%, -50%)';
 
         resizeCanvas();
     </script>
