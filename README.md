@@ -1,7 +1,7 @@
 ## Kitty Clicker
 Jueguito muy kiut y de gatitos :p
 
-## Autores
+# Autores
 - [Matias Orellana](https://github.com/OrellanaMatias)
 - [Marcos Torres](https://github.com/mrtorres7)
 - [Ian Lucero](https://github.com/Lexotanill)
