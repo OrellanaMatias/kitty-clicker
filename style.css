@@ -1,0 +1,359 @@
+:root {
+    --bg-color-dark: #333;
+    --text-color-dark: #fafafa;
+    --accent-color-dark: #4CAF50;
+    --navbar-bg-dark: #444;
+    --modal-bg-dark: #222;
+    --store-item-bg-dark: #555;
+    --store-item-hover-bg-dark: #666;
+    --game-container-bg-dark: #444;
+    --game-container-bg-light: #f8bbd0;
+    --bg-color-light: #fafafa;
+    --text-color-light: #333;
+    --accent-color-light: #ff69b4;
+    --navbar-bg-light: #f0f0f0;
+    --modal-bg-light: #fff;
+    --store-item-bg-light: #ffdbdb;
+    --store-item-hover-bg-light: #ffd1d1;
+}
+
+body[data-theme='light'] #gameContainer {
+    background-color: var(--game-container-bg-light);
+}
+
+body[data-theme='dark'] {
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+}
+
+body[data-theme='light'] {
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+}
+
+#gameContainer {
+    background-color: var(--bg-color-dark);
+}
+
+body[data-theme='light'] #gameContainer {
+    background-color: var(--bg-color-light);
+}
+body[data-theme='light'] #gameContainer {
+    background-color: var(--game-container-bg-light);
+}
+
+#navBar {
+    background-color: var(--navbar-bg-dark);
+    border-radius: 20px;
+}
+
+body[data-theme='light'] #navBar {
+    background-color: var(--navbar-bg-light);
+}
+
+.section {
+    background-color: var(--bg-color-dark);
+}
+
+body[data-theme='light'] .section {
+    background-color: var(--bg-color-light);
+}
+
+.storeItem {
+    background-color: var(--store-item-bg-dark);
+}
+
+body[data-theme='light'] .storeItem {
+    background-color: var(--store-item-bg-light);
+}
+
+.storeItem:hover {
+    background-color: var(--store-item-hover-bg-dark);
+}
+
+body[data-theme='light'] .storeItem:hover {
+    background-color: var(--store-item-hover-bg-light);
+}
+
+.confirmationModal {
+    background-color: var(--modal-bg-dark);
+}
+
+body[data-theme='light'] .confirmationModal {
+    background-color: var(--modal-bg-light);
+}
+
+#themeToggle {
+    background-color: var(--accent-color-dark);
+    color: var(--text-color-dark);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+body[data-theme='light'] #themeToggle {
+    background-color: var(--accent-color-light);
+    color: var(--text-color-light);
+}
+
+#themeToggle:hover {
+    background-color: var(--accent-color-dark);
+}
+
+body[data-theme='light'] #themeToggle:hover {
+    background-color: var(--accent-color-light);
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f3e8fd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Press Start 2P', cursive;
+}
+
+#gameContainer {
+    background-color: var(--game-container-bg-dark);
+    width: 100%;
+    max-width: 360px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+}
+
+#gameTitle {
+    font-size: 1.5rem;
+    color: #d76dff;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#score {
+    font-size: 2rem;
+    color: #ff69b4;
+    margin: 20px 0;
+}
+
+#catImg {
+    width: 80%;
+    max-width: 200px;
+    height: auto;
+    cursor: pointer;
+    image-rendering: pixelated;
+    transition: transform 0.2s;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#catImg:hover {
+    transform: scale(1.05);
+}
+
+#navBar {
+    width: 100%;
+    background-color: #f8bbd0;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+#navBar img {
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+    image-rendering: pixelated;
+    transition: transform 0.2s;
+    border-radius: 50%;
+}
+
+#navBar img:hover {
+    transform: scale(1.1);
+}
+
+.section {
+    display: none;
+    background-color: #ffebf8;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    border-radius: 25px;
+}
+
+#store h2, #stats h2, #achievements h2, #settings h2 {
+    font-size: 1.2rem;
+    color: #d76dff;
+    margin-bottom: 20px;
+}
+
+#backArrow {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 30px;
+    height: auto;
+    cursor: pointer;
+    image-rendering: pixelated;
+    transition: transform 0.2s;
+}
+
+#backArrow:hover {
+    transform: scale(1.1);
+}
+
+.storeItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f3d1e2;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 12px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    position: relative;
+}
+
+.storeItem:hover {
+    background-color: #f8bbd0;
+    transform: translateY(-5px);
+}
+
+.storeItem img {
+    width: 60px;
+    height: auto;
+    image-rendering: pixelated;
+}
+
+.storeItem div {
+    text-align: left;
+    margin-left: 15px;
+    flex-grow: 1;
+}
+
+.storeItem h3 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: #ff69b4;
+}
+
+.storeItem p {
+    font-size: 0.9rem;
+    color: #d76dff;
+    margin-bottom: 5px;
+}
+
+.storeItem span {
+    font-size: 1.1rem;
+    color: #ff69b4;
+    font-weight: bold;
+}
+
+.confirmationModal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffebf8;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    text-align: center;
+    width: 300px;
+}
+
+.confirmationModal h3 {
+    color: #ff69b4;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.confirmationModal button {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #d76dff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.confirmationModal button:hover {
+    background-color: #b266d4;
+}
+
+.confirmationModal button.cancel {
+    background-color: #f44336;
+}
+
+.confirmationModal button.cancel:hover {
+    background-color: #e53935;
+}
+
+@media (max-width: 480px) {
+    .storeItem {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .storeItem img {
+        width: 50px;
+    }
+
+    .storeItem div {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .storeItem h3 {
+        font-size: 1.1rem;
+    }
+
+    .storeItem p {
+        font-size: 0.8rem;
+    }
+
+    .storeItem span {
+        font-size: 1rem;
+    }
+}
+
+.sectionContent {
+    margin-top: 20px;
+    text-align: left;
+    color: #ff69b4;
+}
+
+.sectionContent p {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Cat</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #87CEEB;
+            font-family: Arial, sans-serif;
+        }
+
+        canvas {
+            display: block;
+            background-color: #fff;
+            border: 1px solid #000;
+        }
+
+        #startBtn {
+            display: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+            z-index: 10;
+        }
+
+        #startBtn.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <button id="startBtn">Iniciar</button>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const context = canvas.getContext('2d');
+        const startBtn = document.getElementById('startBtn');
+
+        let playerY, playerX, gravity, lift, velocity, isGameOver, score, pipes;
+        const playerImg = new Image();
+        playerImg.src = 'images/cat.jpg';
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            resetGame();
+        }
+
+        function resetGame() {
+    playerY = canvas.height / 2;
+    playerX = 50;
+    gravity = 0.6;
+    lift = -9;  // Reducir el valor de lift para saltar menos
+    velocity = 0;
+    isGameOver = false;
+    score = 0;
+    pipes = [];
+    startBtn.classList.remove('show');
+    update();
+}
+
+
+        function draw() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(playerImg, playerX, playerY, 30, 30);
+            context.fillStyle = 'black';
+            context.font = '20px Arial';
+            context.fillText(`Puntuación: ${score}`, 10, 30);
+
+            pipes.forEach(pipe => {
+                context.fillStyle = 'green';
+                context.fillRect(pipe.x, 0, pipe.width, pipe.top);
+                context.fillRect(pipe.x, canvas.height - pipe.bottom, pipe.width, pipe.bottom);
+            });
+        }
+
+        function update() {
+    if (!isGameOver) {
+        velocity += gravity;
+        playerY += velocity;
+        draw();
+
+        if (playerY + 30 >= canvas.height) {
+            isGameOver = true;
+        }
+
+        pipes.forEach((pipe, index) => {
+            pipe.x -= 2;
+            if (
+                (playerX + 30 > pipe.x && playerX < pipe.x + pipe.width) &&
+                (playerY < pipe.top || playerY + 30 > canvas.height - pipe.bottom)
+            ) {
+                isGameOver = true;
+            }
+
+            if (pipe.x + pipe.width < 0) {
+                pipes.splice(index, 1);
+                score++;
+            }
+        });
+
+        // Incrementar la distancia entre los obstáculos
+        if (pipes.length === 0 || pipes[pipes.length - 1].x < canvas.width - 300) { 
+            let pipeGap = 200;  // Tamaño separacion superior y inferior
+            let pipeTop = Math.random() * (canvas.height - pipeGap - 20) + 10;
+            let pipeBottom = canvas.height - pipeGap - pipeTop;
+            pipes.push({
+                x: canvas.width,
+                width: 40,
+                top: pipeTop,
+                bottom: pipeBottom
+            });
+        }
+
+        requestAnimationFrame(update);
+    } else {
+        context.fillStyle = 'red';
+        context.font = '30px Arial';
+        context.fillText('A casa', canvas.width / 2 - 70, canvas.height / 3);
+    }
+}
+
+        function handleJump() {
+            if (isGameOver) {
+                resetGame();  // Reinicia el juego si está terminado y se hace clic
+            } else {
+                velocity = lift;
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'ArrowUp') {
+                handleJump();
+            }
+        });
+
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            handleJump();
+        });
+
+        // Aquí añadimos el evento para saltar con clic en PC y reiniciar si es game over
+        document.addEventListener('click', (e) => {
+            handleJump();
+        });
+
+        startBtn.addEventListener('click', () => {
+            resetGame();
+        });
+
+        window.addEventListener('resize', resizeCanvas);
+
+        startBtn.classList.add('show');
+        startBtn.style.top = '50%';
+        startBtn.style.left = '50%';
+        startBtn.style.transform = 'translate(-50%, -50%)';
+
+        resizeCanvas();
+    </script>
+</body>
+</html>
