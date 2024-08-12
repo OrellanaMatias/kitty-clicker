@@ -4,30 +4,55 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kitty CLicker</title>
+    <title>Kitty Clicker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <a href="flappy_cat/index.html" style="text-decoration: none;">
-        <button>Flappy cat</button>
-    </a>
-    
-    <div id="flexBox">
+    <div id="gameContainer">
         <h1 id="gameTitle">Kitty Clicker</h1>
         <h2 id="score">0</h2>
         <img id="catImg" src="img/cat.jpg" alt="Kitty" onClick="getPoints()">
-    </div>
-    <div id="navBar">
-        <img id="storeImg" src="img/store.png" alt="Store" onClick="showStore()">
-    </div>
-    <div id="store">
-        <h2>Tienda</h2>
-        <div class="storeFlex">
-            <img id="multiplierImg" src="img/multiplier.png" alt="Multiplier" onClick="getMultiplier()">
-            <h2>Multiplicador de puntos</h2>
-            <span id ="multiplierPrice">20</span>
+        <div id="navBar">
+            <img id="storeImg" src="img/store.png" alt="Store" onClick="showStore()">
+            <img id="game1Img" src="img/store.png" alt="Juego 1" onClick="goToGame('game1')">
+            <img id="game2Img" src="img/store.png" alt="Juego 2" onClick="goToGame('game2')">
+            <img id="game3Img" src="img/store.png" alt="Juego 3" onClick="goToGame('game3')">
         </div>
     </div>
+    <div id="store" class="section">
+        <img id="backArrow" src="img/back.png" alt="Back" onClick="returnGame()">
+        <h2>Tienda</h2>
+        <div class="storeItem">
+            <img src="img/multiplier.png" alt="Multiplier" onClick="getMultiplier()">
+            <div>
+                <h3>Multiplicador</h3>
+                <p>Duplica tus puntos por clic.</p>
+                <span id="multiplierPrice">20</span>
+            </div>
+        </div>
+    </div>
+    
+    <div id="game1" class="section">
+        <img id="backArrow" src="img/back.png" alt="Back" onClick="returnGame()">
+        <h2>Juego 1</h2>
+    </div>
+    <div id="game2" class="section">
+        <img id="backArrow" src="img/back.png" alt="Back" onClick="returnGame()">
+        <h2>Juego 2</h2>
+    </div>
+    <div id="game3" class="section">
+        <img id="backArrow" src="img/back.png" alt="Back" onClick="returnGame()">
+        <h2>Juego 3</h2>
+    </div>
+
+    <!-- modal confirmar -->
+    <div id="confirmationModal" class="confirmationModal">
+        <h3>¿Estás seguro de comprar esta cosa?</h3>
+        <button id="confirmBtn">Sí</button>
+        <button id="cancelBtn" class="cancel">No</button>
+    </div>
+    
     <script src="script.js"></script>
 </body>
 </html>

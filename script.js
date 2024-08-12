@@ -1,6 +1,6 @@
 let points;
 let multiplier;
-let multiplierPrice = document.getElementById("multiplierPrice").innerText;
+let multiplierPrice;
 
 if (!localStorage.getItem("points")) {
     points = 0;
@@ -15,49 +15,96 @@ if (!localStorage.getItem("multiplier")) {
 }
 
 if (!localStorage.getItem("multiplierPrice")) {
-    multiplierPrice = document.getElementById("multiplierPrice").innerText;
+    multiplierPrice = parseInt(document.getElementById("multiplierPrice").innerText);
 } else {
-    multiplierPrice = parseInt(localStorage.getItem("multiplierPrice"))
+    multiplierPrice = parseInt(localStorage.getItem("multiplierPrice"));
 }
 
 let score = document.getElementById("score");
 let store = document.getElementById("store");
-let flexBox = document.getElementById("flexBox");
-let storeImg = document.getElementById("storeImg");
+let stats = document.getElementById("stats");
+let achievements = document.getElementById("achievements");
+let settings = document.getElementById("settings");
 let navBar = document.getElementById("navBar");
+let confirmationModal = document.getElementById("confirmationModal");
+let confirmBtn = document.getElementById("confirmBtn");
+let cancelBtn = document.getElementById("cancelBtn");
+
+score.innerText = points;
 
 function getPoints() {
-    points += (1 * multiplier)
+    points += (1 * multiplier);
     console.log(points);
     score.innerText = points;
     saveData();
 }
 
 function showStore() {
+    hideAllSections();
     store.style.display = "block";
-    flexBox.style.display = "none";
-    navBar.style.backgroundColor = "#58d68d";
-    storeImg.src = "img/back.png";
-    storeImg.setAttribute("onClick", "returnGame()");
+}
+
+function showStats() {
+    hideAllSections();
+    stats.style.display = "block";
+}
+
+function showAchievements() {
+    hideAllSections();
+    achievements.style.display = "block";
+}
+
+function showSettings() {
+    hideAllSections();
+    settings.style.display = "block";
 }
 
 function returnGame() {
-    store.style.display = "none";
-    flexBox.style.display = "flex";
-    navBar.style.backgroundColor = "#030508";
-    storeImg.src = "img/store.png";
-    storeImg.setAttribute("onClick", "showStore()");
+    hideAllSections();
+    navBar.style.display = "flex";
     score.innerText = points;
+}
+
+function hideAllSections() {
+    store.style.display = "none";
+    document.getElementById("game1").style.display = "none";
+    document.getElementById("game2").style.display = "none";
+    document.getElementById("game3").style.display = "none";
+    navBar.style.display = "none";
+}
+
+document.querySelectorAll('.storeItem').forEach(item => {
+    item.addEventListener('click', function() {
+        showConfirmationModal(getMultiplier);
+    });
+});
+
+function showConfirmationModal(callback) {
+    confirmationModal.style.display = 'block';
+    
+    confirmBtn.onclick = function() {
+        callback();
+        hideConfirmationModal();
+    };
+    
+    cancelBtn.onclick = function() {
+        hideConfirmationModal();
+    };
+}
+
+function hideConfirmationModal() {
+    confirmationModal.style.display = 'none';
 }
 
 function getMultiplier() {
     if (points >= multiplierPrice) {
         multiplier += 1;
         points = points - multiplierPrice;
-        multiplierPrice += (multiplierPrice * 2);
+        multiplierPrice = Math.floor(multiplierPrice * 2);
         document.getElementById("multiplierPrice").innerText = multiplierPrice;
+        saveData();
     } else {
-        console.log("¡No tenes suficientes puntos!");
+        console.log("¡No tienes suficientes puntos!");
     }
 }
 
@@ -65,4 +112,18 @@ function saveData() {
     localStorage.setItem("points", points);
     localStorage.setItem("multiplier", multiplier);
     localStorage.setItem("multiplierPrice", multiplierPrice);
+}
+
+function goToGame(game) {
+    let gameUrls = {
+        'game1': 'flappy_cat/index.html',
+        'game2': 'flappy_cat/index.html',
+        'game3': 'flappy_cat/index.html'
+    };
+
+    if (gameUrls[game]) {
+        window.location.href = gameUrls[game];
+    } else {
+        console.log("No se encontró la URL del juego.");
+    }
 }
