@@ -1,6 +1,7 @@
 let points;
 let multiplier;
 let multiplierPrice;
+let currentTheme = 'light';
 
 if (!localStorage.getItem("points")) {
     points = 0;
@@ -127,3 +128,8 @@ function goToGame(game) {
         console.log("No se encontró la URL del juego.");
     }
 }
+
+themeToggle.addEventListener('click', () => {
+    currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+    document.body.dataset.theme = currentTheme;
+});
