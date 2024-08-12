@@ -125,7 +125,7 @@ function goToGame(game) {
     if (gameUrls[game]) {
         window.location.href = gameUrls[game];
     } else {
-        console.log("No se encontró la URL del juego.");
+        console.log("No se encontro la URL del juego.");
     }
 }
 
